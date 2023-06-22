@@ -9,6 +9,7 @@ packages = [{include = "combine_gpx"}]
 [tool.poetry.dependencies]
 python = "^3.11"
 ipdb = "^0.13.13"
+fitparse = "^1.2.0"
 
 
 [build-system]

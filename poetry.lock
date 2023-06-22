@@ -76,6 +76,16 @@ files = [
 tests = ["asttokens", "littleutils", "pytest", "rich"]
 
 [[package]]
+name = "fitparse"
+version = "1.2.0"
+description = "Python library to parse ANT/Garmin .FIT files"
+optional = false
+python-versions = "*"
+files = [
+    {file = "fitparse-1.2.0.tar.gz", hash = "sha256:2d691022452dea6dabad13cc6e017ca467fe8a3a895cd3ac67a50a7bb716b4a9"},
+]
+
+[[package]]
 name = "ipdb"
 version = "0.13.13"
 description = "IPython-enabled pdb"
@@ -313,4 +323,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "713e5bbd218326b15b64eee9e9c508f22d8a7a86625b91fa8cc076d1e761eb3f"
+content-hash = "5d67d418e0cb8c19537921b3ecc06b35a998c89698e80e78e1582153aa3407fa"
