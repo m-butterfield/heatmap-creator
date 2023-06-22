@@ -5,7 +5,9 @@ from xml.etree import ElementTree
 
 import fitparse
 
-ACTIVITIES_GLOB = "/Users/matt/Google Drive/My Drive/strava data/activities/*"
+ACTIVITIES_GLOB = "./strava_data/activities/*"
+# 2^32 / 360 - https://gis.stackexchange.com/questions/122186/convert-garmin-or-iphone-weird-gps-coordinates
+CONVERSION = 11930465
 
 
 def main():
@@ -15,11 +17,7 @@ def main():
         if f.endswith("fit.gz"):
             coords.append(get_fit_coords(f))
         else:
-            root = ElementTree.parse(f).getroot()
-            pts = root.findall(".//{http://www.topografix.com/GPX/1/1}trkpt")
-            coords.append(
-                [[float(pt.attrib["lon"]), float(pt.attrib["lat"])] for pt in pts]
-            )
+            coords.append(get_gpx_coords(f))
         count += 1
         if count % 10 == 0:
             print(f"processed: {count} activities")
@@ -36,12 +34,14 @@ def main():
         )
 
 
-# 2^32 / 360 - https://gis.stackexchange.com/questions/122186/convert-garmin-or-iphone-weird-gps-coordinates
-CONVERSION = 11930465
+def get_gpx_coords(path: str):
+    root = ElementTree.parse(path).getroot()
+    pts = root.findall(".//{http://www.topografix.com/GPX/1/1}trkpt")
+    return [[float(pt.attrib["lon"]), float(pt.attrib["lat"])] for pt in pts]
 
 
 def get_fit_coords(path: str):
-    pts = []
+    pts: list[list[float]] = []
     with gzip.open(path, "r") as f:
         fitfile = fitparse.FitFile(f.read())
         for record in fitfile.get_messages("record"):
