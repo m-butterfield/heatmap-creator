@@ -3,3 +3,13 @@ result.geojson
 result.geojson.bak*
 scratch
 strava_data
+
+
+dist
+node_modules
+bin
+dump.sql
+.terraform
+*.tfstate
+secrets.tfvars
+*.log

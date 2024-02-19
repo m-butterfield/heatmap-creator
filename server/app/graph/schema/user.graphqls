@@ -1,0 +1,31 @@
+type User {
+  id: String!
+  username: String!
+}
+
+input UserCreds {
+  username: String!
+  password: String!
+}
+
+type LoginResponse {
+  user: User!
+  queryToken: String!
+}
+
+type UserStats {
+  maxQueries: Int!
+  numQueries: Int!
+}
+
+type Mutation {
+  createUser(input: UserCreds!): User!
+  logout: Boolean!
+  login(credential: String!): LoginResponse
+}
+
+type Query {
+  me: User
+  getUser(username: String!): User!
+  getUserStats: UserStats!
+}

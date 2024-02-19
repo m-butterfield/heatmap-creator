@@ -1,0 +1,13 @@
+{{ define "base" }}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>heatmap-creator</title>
+    <link rel="shortcut icon" type="image/png" href="{{ .ImagesBaseURL }}favicon.ico"/>
+    {{ template "head" . }}
+  </head>
+  <body>
+    {{ template "main" . }}
+  </body>
+</html>
+{{ end }}
