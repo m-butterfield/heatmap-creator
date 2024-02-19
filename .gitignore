@@ -1,2 +1,5 @@
 *.gpx
 result.geojson
+result.geojson.bak*
+scratch
+strava_data

@@ -4,7 +4,6 @@ version = "0.1.0"
 description = ""
 authors = ["Matt Butterfield <matt@mattbutterfield.com>"]
 readme = "README.md"
-packages = [{include = "combine_gpx"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
