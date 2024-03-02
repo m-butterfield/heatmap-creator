@@ -14,11 +14,15 @@ def main():
     coords: list[list[list[float]]] = []
     count = 0
     for f in glob.glob(ACTIVITIES_GLOB):
-        if f.endswith("fit.gz"):
-            if fit_result := get_fit_coords(f):
-                coords.append(fit_result)
-        else:
-            coords.append(get_gpx_coords(f))
+        try:
+            if f.endswith("fit.gz") or f.endswith("fit"):
+                if fit_result := get_fit_coords(f):
+                    coords.append(fit_result)
+            else:
+                coords.append(get_gpx_coords(f))
+        except Exception:
+            print(f"Error processing file {f}")
+            raise
         count += 1
         if count % 10 == 0:
             print(f"processed: {count} activities")
@@ -43,7 +47,7 @@ def get_gpx_coords(path: str):
 
 def get_fit_coords(path: str) -> list[list[float]] | None:
     pts: list[list[float]] = []
-    with gzip.open(path, "r") as f:
+    with _open_fit_func(path)(path, "rb") as f:
         fitfile = fitparse.FitFile(f.read())
 
         # skip virtual rides
@@ -58,6 +62,12 @@ def get_fit_coords(path: str) -> list[list[float]] | None:
             if lat and long:
                 pts.append([long / CONVERSION, lat / CONVERSION])
     return pts
+
+
+def _open_fit_func(path: str):
+    if path.endswith(".gz"):
+        return gzip.open
+    return open
 
 
 if __name__ == "__main__":

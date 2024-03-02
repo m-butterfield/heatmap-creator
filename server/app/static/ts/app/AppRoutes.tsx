@@ -1,4 +1,4 @@
-import { Map } from "app/Map"
+import { HeatMap } from "app/HeatMap"
 import { Privacy } from "app/Privacy";
 import React from "react";
 import { Route, Routes } from "react-router-dom";
@@ -25,10 +25,10 @@ const AppRoutes = () => {
         }
       />
       <Route
-        path="/map"
+        path="/heatmap"
         element={
           <React.Suspense fallback={<>...</>}>
-            <Map />
+            <HeatMap />
           </React.Suspense>
         }
       />
